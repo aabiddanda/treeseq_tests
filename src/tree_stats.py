@@ -25,11 +25,8 @@ def breakpoint_consist(ts1,ts2):
     return(eq)
 
 
-def tmrca_consistency(ts, id1, id2):
-    """
-        Given a set of ids calculate the tmrca for these nodes
-        NOTE: this requires you have metadata for the individuals  
-    """
+def pairwise_tmrcas(ts, id1, id2):
+
     # Find the node ids for the individual IDs
     node_ids = np.array([i.nodes for i in ts.individuals()])
     indiv_ids = np.array([eval(i.metadata)['name'] for i in ts.individuals()])
@@ -53,4 +50,15 @@ def tmrca_consistency(ts, id1, id2):
         progress.update()
     progress.close()
     return(tmrcas)
+
+def tmrca_consistency(ts1, ts2, id1, id2):
+    """
+        Given a set of ids calculate the tmrca for these nodes
+        NOTE: this requires you have metadata for the individuals  
+    """
+    # Check that the pairwise tmrcas look very similar
+    tmrcas1 = pairwise_tmrcas(ts1, id1, id2)
+    tmrcas2 = pairwise_tmrcas(ts2, id1, id2)
+    return(np.all(tmrcas1 == tmrcas2))
+
 
