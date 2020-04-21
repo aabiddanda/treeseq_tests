@@ -2,9 +2,9 @@
     Computing measures of similarity on sets of tree sequences
 """
 import tskit
+from ast import literal_eval
 import numpy as np 
 from tqdm import tqdm
-
 
 def ntrees_consist(ts1,ts2):
     """
@@ -61,4 +61,19 @@ def tmrca_consistency(ts1, ts2, id1, id2):
     tmrcas2 = pairwise_tmrcas(ts2, id1, id2)
     return(np.all(tmrcas1 == tmrcas2))
 
+
+# ------ Population filtering procedures -----# 
+def filter_pop(ts, popdict, pop='CEU', **kwargs): 
+    """
+        Filter to a tree-sequence that only contains individuals within a
+        particular population
+    """
+    indiv_ids_ts = np.array([literal_eval(i.metadata.decode('utf-8'))['name'] for i in
+            ts.individuals()])
+    nodes_ts = np.array([i.nodes for i in ts.individuals()])
+    valid_idx = np.array([i for i in range(indiv_ids_ts.size) if
+            popdict[indiv_ids_ts[i]] == pop])
+    valid_nodes = np.concatenate(nodes_ts[valid_idx])
+    simp_ts = ts.simplify(samples=valid_nodes, **kwargs)  
+    return(simp_ts)
 
