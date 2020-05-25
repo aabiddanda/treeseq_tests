@@ -1,7 +1,7 @@
 #!/usr/local/bin/python3
 
 '''
-    Simulating 
+    Simulating sampled datasets
 '''
 
 import click

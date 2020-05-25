@@ -5,7 +5,7 @@
       "mem": "1G",
       "out": "log/{rule}-%j.out",
       "err": "log/{rule}-%j.err",
-      "partition": "jnovembre",
+      "partition": "broadwl",
       "ncores": "1"
     },
     "gen_samples":
@@ -14,16 +14,16 @@
       "mem": "5G",
       "out": "log/{rule}-%j.out",
       "err": "log/{rule}-%j.err",
-      "partition": "jnovembre",
+      "partition": "broadwl",
       "ncores": "5"
     },
     "run_tsinfer":
     {
-      "time" : "3:00:00",
-      "mem": "5G",
+      "time" : "10:00:00",
+      "mem": "10G",
       "out": "log/{rule}-%j.out",
       "err": "log/{rule}-%j.err",
-      "partition": "jnovembre",
+      "partition": "bigmem2",
       "ncores": "5"
     }
 }
